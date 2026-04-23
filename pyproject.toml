@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "iocvault"
+version = "0.1.0"
+description = "A local-first IOC aggregation, normalization and scoring workbench for SOC analysts."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115.0,<0.116.0",
+  "uvicorn[standard]>=0.30.0,<1.0.0",
+  "sqlalchemy>=2.0.35,<3.0.0",
+  "alembic>=1.13.0,<2.0.0",
+  "pydantic>=2.9.0,<3.0.0",
+  "pydantic-settings>=2.5.0,<3.0.0",
+  "jinja2>=3.1.4,<4.0.0",
+  "python-multipart>=0.0.9,<1.0.0",
+  "loguru>=0.7.2,<1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0,<9.0.0",
+  "httpx>=0.27.0,<0.28.0",
+  "ruff>=0.6.7,<1.0.0",
+  "mypy>=1.11.0,<2.0.0",
+]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N"]
+
+[tool.ruff.lint.per-file-ignores]
+"app/routers/api/*.py" = ["B008"]
+"app/routers/web/*.py" = ["B008"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+exclude = ["^tests/"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]

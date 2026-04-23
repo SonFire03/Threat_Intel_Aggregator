@@ -1,0 +1,4 @@
+indicator,type
+8.8.8.8,ip
+hxxps://evil[.]com/path#frag,url
+44d88612fea8a8f36de82e1278abb02f,md5

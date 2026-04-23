@@ -1,0 +1,161 @@
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --card: #1c2128;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --border: #30363d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: radial-gradient(circle at top left, #111827, var(--bg));
+  color: var(--text);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 20px;
+}
+
+.sidebar h1 {
+  margin: 0 0 18px;
+  font-size: 1.3rem;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.sidebar a:hover {
+  background: var(--card);
+  color: var(--accent);
+}
+
+.content {
+  padding: 24px;
+}
+
+.panel {
+  background: rgba(28, 33, 40, 0.95);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.metrics {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.metrics article {
+  background: #0f1720;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.metrics h2 {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.metrics p {
+  margin: 8px 0 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--border);
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+code {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  color: #9ecbff;
+}
+
+input,
+select,
+button {
+  background: #0f1720;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 10px;
+}
+
+button {
+  cursor: pointer;
+  background: linear-gradient(90deg, #1f6feb, #2f81f7);
+  border: none;
+}
+
+pre {
+  background: #0f1720;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  white-space: pre-wrap;
+}
+
+.filters,
+.stack {
+  display: grid;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

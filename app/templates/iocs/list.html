@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}IOCs | IOCvault{% endblock %}
+{% block content %}
+<section class="panel">
+  <h2>IOC Search</h2>
+  <form method="get" action="/iocs" class="filters">
+    <input type="text" name="q" placeholder="search value" value="{{ q }}" />
+    <select name="ioc_type">
+      <option value="">all types</option>
+      {% for t in ioc_types %}
+      <option value="{{ t }}" {% if t == ioc_type %}selected{% endif %}>{{ t }}</option>
+      {% endfor %}
+    </select>
+    <select name="watchlist">
+      <option value="">watchlist: any</option>
+      <option value="true" {% if watchlist == "true" %}selected{% endif %}>watchlisted only</option>
+    </select>
+    <button type="submit">Apply</button>
+  </form>
+</section>
+
+<section class="panel">
+  <h2>IOC List ({{ total }})</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Value</th>
+        <th>Type</th>
+        <th>Priority</th>
+        <th>Observations</th>
+        <th>Last Seen</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ioc in iocs %}
+      <tr>
+        <td><code>{{ ioc.value }}</code></td>
+        <td>{{ ioc.ioc_type.value }}</td>
+        <td>{{ "%.2f"|format(ioc.priority_score) }}</td>
+        <td>{{ ioc.observation_count }}</td>
+        <td>{{ ioc.last_seen }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">No IOC found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

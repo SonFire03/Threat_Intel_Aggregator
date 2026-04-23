@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}IOCvault{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/custom.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <h1>IOCvault</h1>
+        <nav>
+          <a href="/">Dashboard</a>
+          <a href="/iocs">IOCs</a>
+          <a href="/imports">Imports</a>
+          <a href="/exports">Exports</a>
+          <a href="/docs">API Docs</a>
+        </nav>
+      </aside>
+      <main class="content">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </body>
+</html>

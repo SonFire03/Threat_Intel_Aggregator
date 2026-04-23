@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Imports | IOCvault{% endblock %}
+{% block content %}
+<section class="panel">
+  <h2>Import File</h2>
+  <form id="import-form" class="stack">
+    <label>Source name</label>
+    <input type="text" name="source_name" value="manual-upload" required />
+
+    <label>Format (optional)</label>
+    <select name="fmt">
+      <option value="">auto</option>
+      <option value="txt">txt</option>
+      <option value="csv">csv</option>
+      <option value="json">json</option>
+    </select>
+
+    <label>File</label>
+    <input type="file" name="file" required />
+
+    <button type="submit">Run Import</button>
+  </form>
+  <pre id="import-result">No job yet.</pre>
+</section>
+
+<script>
+  document.getElementById("import-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const payload = new FormData(form);
+    const resultElement = document.getElementById("import-result");
+    resultElement.textContent = "Import running...";
+
+    const response = await fetch("/api/v1/imports", {
+      method: "POST",
+      body: payload,
+    });
+
+    const body = await response.json();
+    resultElement.textContent = JSON.stringify(body, null, 2);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | IOCvault{% endblock %}
+{% block content %}
+<section class="panel metrics">
+  <article>
+    <h2>Total IOCs</h2>
+    <p>{{ total_iocs }}</p>
+  </article>
+  <article>
+    <h2>Watchlisted</h2>
+    <p>{{ watchlisted_iocs }}</p>
+  </article>
+  <article>
+    <h2>Avg Priority</h2>
+    <p>{{ average_priority }}</p>
+  </article>
+</section>
+
+<section class="panel">
+  <h2>Recent IOCs</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Value</th>
+        <th>Type</th>
+        <th>Priority</th>
+        <th>Watchlist</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ioc in recent_iocs %}
+      <tr>
+        <td><code>{{ ioc.value }}</code></td>
+        <td>{{ ioc.ioc_type.value }}</td>
+        <td>{{ "%.2f"|format(ioc.priority_score) }}</td>
+        <td>{{ "yes" if ioc.is_watchlisted else "no" }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4">No IOC yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="panel">
+  <h2>Recent Import Jobs</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Status</th>
+        <th>Imported</th>
+        <th>Duplicates</th>
+        <th>Errors</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for job in recent_jobs %}
+      <tr>
+        <td>{{ job.filename }}</td>
+        <td>{{ job.status.value }}</td>
+        <td>{{ job.imported_count }}</td>
+        <td>{{ job.duplicate_count }}</td>
+        <td>{{ job.error_count }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5">No import job yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
