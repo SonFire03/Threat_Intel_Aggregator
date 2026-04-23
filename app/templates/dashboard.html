@@ -1,23 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Dashboard | IOCvault{% endblock %}
 {% block content %}
+<section class="hero">
+  <h1>Threat Intel Dashboard</h1>
+  <p>Track your latest indicators, import quality, and prioritization score in one place.</p>
+</section>
+
 <section class="panel metrics">
-  <article>
+  <article class="metric-card">
     <h2>Total IOCs</h2>
-    <p>{{ total_iocs }}</p>
+    <p class="metric-value">{{ total_iocs }}</p>
   </article>
-  <article>
+  <article class="metric-card">
     <h2>Watchlisted</h2>
-    <p>{{ watchlisted_iocs }}</p>
+    <p class="metric-value">{{ watchlisted_iocs }}</p>
   </article>
-  <article>
+  <article class="metric-card">
     <h2>Avg Priority</h2>
-    <p>{{ average_priority }}</p>
+    <p class="metric-value">{{ average_priority }}</p>
   </article>
 </section>
 
 <section class="panel">
-  <h2>Recent IOCs</h2>
+  <div class="panel-header">
+    <h2>Recent IOCs</h2>
+    <span class="pill">{{ recent_iocs|length }} shown</span>
+  </div>
   <table>
     <thead>
       <tr>
@@ -31,9 +39,15 @@
       {% for ioc in recent_iocs %}
       <tr>
         <td><code>{{ ioc.value }}</code></td>
-        <td>{{ ioc.ioc_type.value }}</td>
-        <td>{{ "%.2f"|format(ioc.priority_score) }}</td>
-        <td>{{ "yes" if ioc.is_watchlisted else "no" }}</td>
+        <td><span class="pill pill-type">{{ ioc.ioc_type.value }}</span></td>
+        <td><span class="pill pill-priority">{{ "%.2f"|format(ioc.priority_score) }}</span></td>
+        <td>
+          {% if ioc.is_watchlisted %}
+          <span class="pill pill-alert">yes</span>
+          {% else %}
+          <span class="pill">no</span>
+          {% endif %}
+        </td>
       </tr>
       {% else %}
       <tr><td colspan="4">No IOC yet.</td></tr>
@@ -43,7 +57,10 @@
 </section>
 
 <section class="panel">
-  <h2>Recent Import Jobs</h2>
+  <div class="panel-header">
+    <h2>Recent Import Jobs</h2>
+    <span class="pill">{{ recent_jobs|length }} shown</span>
+  </div>
   <table>
     <thead>
       <tr>
@@ -58,10 +75,16 @@
       {% for job in recent_jobs %}
       <tr>
         <td>{{ job.filename }}</td>
-        <td>{{ job.status.value }}</td>
+        <td><span class="pill">{{ job.status.value }}</span></td>
         <td>{{ job.imported_count }}</td>
         <td>{{ job.duplicate_count }}</td>
-        <td>{{ job.error_count }}</td>
+        <td>
+          {% if job.error_count > 0 %}
+          <span class="pill pill-alert">{{ job.error_count }}</span>
+          {% else %}
+          <span class="pill">0</span>
+          {% endif %}
+        </td>
       </tr>
       {% else %}
       <tr><td colspan="5">No import job yet.</td></tr>

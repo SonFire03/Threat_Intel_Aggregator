@@ -3,7 +3,7 @@ __pycache__/
 *.sqlite3
 *.db
 .codex
-exports/
+/exports/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/

@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Imports | IOCvault{% endblock %}
 {% block content %}
+<section class="hero">
+  <h1>Import Center</h1>
+  <p>Upload TXT, CSV, or JSON files to ingest indicators and generate import job reports.</p>
+</section>
+
 <section class="panel">
-  <h2>Import File</h2>
+  <div class="panel-header">
+    <h2>Import File</h2>
+    <span class="pill">API: /api/v1/imports</span>
+  </div>
   <form id="import-form" class="stack">
     <label>Source name</label>
     <input type="text" name="source_name" value="manual-upload" required />

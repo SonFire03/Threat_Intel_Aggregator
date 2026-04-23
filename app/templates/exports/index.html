@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Exports | IOCvault{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Export Center</h1>
+  <p>Generate filtered intelligence snapshots in JSON, CSV, or TXT format.</p>
+</section>
+
+<section class="panel">
+  <div class="panel-header">
+    <h2>Create Export</h2>
+    <span class="pill">API: /api/v1/exports</span>
+  </div>
+  <form id="export-form" class="stack">
+    <label>Format</label>
+    <select name="format">
+      <option value="json">json</option>
+      <option value="csv">csv</option>
+      <option value="txt">txt</option>
+    </select>
+
+    <label>Filter: query</label>
+    <input type="text" name="q" placeholder="optional" />
+
+    <label>Filter: watchlist only</label>
+    <select name="watchlist">
+      <option value="">any</option>
+      <option value="true">true</option>
+    </select>
+
+    <button type="submit">Create Export</button>
+  </form>
+  <pre id="export-result">No export yet.</pre>
+  <a id="export-download" class="download-link" href="#" style="display:none">Download export</a>
+</section>
+
+<script>
+  document.getElementById("export-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const format = form.format.value;
+    const filters = {};
+    if (form.q.value.trim()) filters.q = form.q.value.trim();
+    if (form.watchlist.value.trim()) filters.watchlist = form.watchlist.value.trim();
+
+    const response = await fetch("/api/v1/exports", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ format, filters }),
+    });
+
+    const body = await response.json();
+    document.getElementById("export-result").textContent = JSON.stringify(body, null, 2);
+
+    if (body.id) {
+      const link = document.getElementById("export-download");
+      link.href = `/api/v1/exports/${body.id}/download`;
+      link.style.display = "inline-block";
+    }
+  });
+</script>
+{% endblock %}

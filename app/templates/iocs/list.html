@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 {% block title %}IOCs | IOCvault{% endblock %}
 {% block content %}
+<section class="hero">
+  <h1>IOC Explorer</h1>
+  <p>Filter, sort, and inspect indicators with watchlist-aware prioritization.</p>
+</section>
+
 <section class="panel">
-  <h2>IOC Search</h2>
+  <div class="panel-header">
+    <h2>IOC Search</h2>
+    <span class="pill">Live via query params</span>
+  </div>
   <form method="get" action="/iocs" class="filters">
     <input type="text" name="q" placeholder="search value" value="{{ q }}" />
     <select name="ioc_type">
@@ -20,7 +28,10 @@
 </section>
 
 <section class="panel">
-  <h2>IOC List ({{ total }})</h2>
+  <div class="panel-header">
+    <h2>IOC List</h2>
+    <span class="pill">{{ total }} total</span>
+  </div>
   <table>
     <thead>
       <tr>
@@ -35,10 +46,10 @@
       {% for ioc in iocs %}
       <tr>
         <td><code>{{ ioc.value }}</code></td>
-        <td>{{ ioc.ioc_type.value }}</td>
-        <td>{{ "%.2f"|format(ioc.priority_score) }}</td>
+        <td><span class="pill pill-type">{{ ioc.ioc_type.value }}</span></td>
+        <td><span class="pill pill-priority">{{ "%.2f"|format(ioc.priority_score) }}</span></td>
         <td>{{ ioc.observation_count }}</td>
-        <td>{{ ioc.last_seen }}</td>
+        <td><span class="muted">{{ ioc.last_seen }}</span></td>
       </tr>
       {% else %}
       <tr><td colspan="5">No IOC found.</td></tr>

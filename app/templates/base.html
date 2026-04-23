@@ -4,17 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}IOCvault{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/static/css/custom.css" />
   </head>
   <body>
     <div class="layout">
       <aside class="sidebar">
         <h1>IOCvault</h1>
+        <p class="sidebar-subtitle">Local Threat Intel Workbench</p>
         <nav>
-          <a href="/">Dashboard</a>
-          <a href="/iocs">IOCs</a>
-          <a href="/imports">Imports</a>
-          <a href="/exports">Exports</a>
+          <a href="/" class="{% if request.url.path == '/' %}active{% endif %}">Dashboard</a>
+          <a href="/iocs" class="{% if request.url.path.startswith('/iocs') %}active{% endif %}">IOCs</a>
+          <a href="/imports" class="{% if request.url.path.startswith('/imports') %}active{% endif %}">Imports</a>
+          <a href="/exports" class="{% if request.url.path.startswith('/exports') %}active{% endif %}">Exports</a>
           <a href="/docs">API Docs</a>
         </nav>
       </aside>
