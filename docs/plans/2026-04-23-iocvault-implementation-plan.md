@@ -1,7 +1,7 @@
 # IOCvault — Implementation Plan (TDD)
 
 **Date:** 2026-04-23  
-**Input spec:** `docs/superpowers/specs/2026-04-23-iocvault-design.md`  
+**Input spec:** `docs/specs/2026-04-23-iocvault-design.md`  
 **Status:** Ready for execution
 
 ---

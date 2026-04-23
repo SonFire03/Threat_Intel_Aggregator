@@ -586,9 +586,8 @@ iocvault/
 │   └── demo_iocs.csv
 │
 └── docs/
-    └── superpowers/
-        └── specs/
-            └── 2026-04-23-iocvault-design.md
+    └── specs/
+        └── 2026-04-23-iocvault-design.md
 ```
 
 ---
