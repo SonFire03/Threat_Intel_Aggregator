@@ -1,54 +1,45 @@
 # IOCvault
 
-Local-first IOC aggregation, normalization, scoring and export workbench.
+![Python](https://img.shields.io/badge/python-3.12+-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-local-07405E?logo=sqlite&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-38_passing-brightgreen)
+
+Local-first IOC aggregation, normalization, scoring, and export workbench.
 
 ---
 
 ## FR
 
-### Pourquoi ce projet existe
+### Vision
 
-IOCvault a été conçu pour répondre à un besoin simple: travailler rapidement sur des IOC (Indicators of Compromise) sans dépendre d'une plateforme lourde ni d'API externes.
+IOCvault existe pour combler l'écart entre un tableur d'IOC et une plateforme CTI lourde.
+Le projet permet d'ingérer des IOC hétérogènes, de les normaliser, de les dédupliquer, de les scorer, puis de les exporter rapidement.
 
-L'objectif est de proposer un outil local, testable et reproductible pour:
-- importer des IOC depuis des fichiers texte/CSV/JSON,
-- normaliser et dédupliquer automatiquement les données,
-- prioriser l'analyse via un score explicable,
-- filtrer, tagger, watchlister et exporter les résultats.
+### Pourquoi ce projet
 
-### Objectif du programme
-
-Le programme sert de socle opérationnel pour un flux de travail Threat Intel / SOC:
-- ingestion fiable de données hétérogènes,
-- nettoyage automatique des formats (defang/refang, normalisation IP/domain/hash/URL),
-- suivi des observations et scoring,
-- exposition API + interface web légère pour usage quotidien.
-
-### Pourquoi avoir fait ces choix techniques
-
-- `FastAPI`: API claire + documentation Swagger native.
-- `SQLAlchemy + Alembic + SQLite`: base locale simple, migrations versionnées.
-- `Jinja2`: interface web sans build frontend complexe.
-- `pytest + mypy + ruff`: qualité de code et régressions contrôlées.
+- Construire un flux Threat Intel / SOC exploitable localement.
+- Éviter les dépendances externes pour la démonstration et le test.
+- Garder une architecture claire, testable et évolutive.
 
 ### Fonctionnalités actuelles
 
-- API REST:
-  - `/api/v1/imports`
-  - `/api/v1/iocs`
-  - `/api/v1/tags`
-  - `/api/v1/stats`
-  - `/api/v1/exports`
-- UI Web:
-  - `/` dashboard
-  - `/iocs`
-  - `/imports`
-  - `/exports`
-- Import TXT/CSV/JSON avec rapport de job.
-- Déduplication + scoring + enrichissement local.
-- Export en `csv`, `json`, `txt`.
+- Import TXT/CSV/JSON avec job report.
+- Normalisation IOC (IP, domaine, URL, hash).
+- Déduplication + observation tracking.
+- Scoring local (confidence/severity/priority).
+- Tags + watchlist.
+- Exports `json`, `csv`, `txt`.
+- API REST (`/api/v1/*`) + UI web (`/`, `/iocs`, `/imports`, `/exports`).
 
-### Lancer le projet
+### Captures d'écran
+
+![Dashboard](assets/screenshots/dashboard.png)
+![IOC List](assets/screenshots/iocs.png)
+![Import Center](assets/screenshots/imports.png)
+![Export Center](assets/screenshots/exports.png)
+
+### Démarrage rapide
 
 ```bash
 cd /path/to/Threat_Intel_Aggregator
@@ -58,63 +49,50 @@ pip install -e '.[dev]'
 uvicorn app.main:app --reload
 ```
 
-Ensuite:
-- Application web: `http://127.0.0.1:8000/`
-- Documentation API: `http://127.0.0.1:8000/docs`
+Puis ouvrir:
+- App web: `http://127.0.0.1:8000/`
+- Docs API: `http://127.0.0.1:8000/docs`
 
-### Qualité actuelle
+### Qualité et structure
 
 - Lint: `ruff check .`
 - Typage: `mypy app`
 - Tests: `pytest`
+- Docs: `docs/specs/` et `docs/plans/`
 
 ---
 
 ## EN
 
-### Why this project exists
+### Vision
 
-IOCvault was built to solve a practical problem: handling indicators of compromise quickly without relying on heavy external platforms or paid API integrations.
+IOCvault bridges the gap between a spreadsheet-based IOC workflow and a heavy CTI platform.
+It ingests heterogeneous indicators, normalizes and deduplicates them, applies explainable scoring, and exports the result quickly.
 
-The goal is to provide a local, reproducible workflow to:
-- import IOCs from text/CSV/JSON files,
-- normalize and deduplicate data automatically,
-- prioritize investigation with an explainable score,
-- filter, tag, watchlist, and export results.
+### Why this project
 
-### Program purpose
+- Build a practical local Threat Intel / SOC workflow.
+- Remove external dependencies for easy demo and testing.
+- Keep the architecture clean, testable, and extensible.
 
-This application acts as a compact Threat Intel / SOC workbench:
-- reliable ingestion of heterogeneous IOC feeds,
-- automatic cleanup and normalization (defang/refang, IP/domain/hash/URL),
-- observation tracking and scoring,
-- both API and lightweight web interface for daily operations.
+### Current features
 
-### Why these technical choices
+- TXT/CSV/JSON import with job report.
+- IOC normalization (IP, domain, URL, hash).
+- Deduplication + observation tracking.
+- Local scoring (confidence/severity/priority).
+- Tags + watchlist.
+- `json`, `csv`, `txt` exports.
+- REST API (`/api/v1/*`) + web UI (`/`, `/iocs`, `/imports`, `/exports`).
 
-- `FastAPI`: clean API layer with native Swagger docs.
-- `SQLAlchemy + Alembic + SQLite`: simple local persistence with versioned schema.
-- `Jinja2`: zero-build web interface.
-- `pytest + mypy + ruff`: strong quality gates and regression control.
+### Screenshots
 
-### Current capabilities
+![Dashboard](assets/screenshots/dashboard.png)
+![IOC List](assets/screenshots/iocs.png)
+![Import Center](assets/screenshots/imports.png)
+![Export Center](assets/screenshots/exports.png)
 
-- REST API:
-  - `/api/v1/imports`
-  - `/api/v1/iocs`
-  - `/api/v1/tags`
-  - `/api/v1/stats`
-  - `/api/v1/exports`
-- Web UI:
-  - `/` dashboard
-  - `/iocs`
-  - `/imports`
-  - `/exports`
-- TXT/CSV/JSON import with job reports.
-- Deduplication + scoring + local enrichment.
-- `csv`, `json`, `txt` export.
-
-### Run locally
+### Quick start
 
 ```bash
 cd /path/to/Threat_Intel_Aggregator
@@ -128,8 +106,15 @@ Then open:
 - Web app: `http://127.0.0.1:8000/`
 - API docs: `http://127.0.0.1:8000/docs`
 
-### Quality status
+### Quality and docs
 
 - Lint: `ruff check .`
 - Types: `mypy app`
 - Tests: `pytest`
+- Docs: `docs/specs/` and `docs/plans/`
+
+---
+
+## Release
+
+Current stable tag: `v0.1.0` (API + Web UI + import/score/export baseline).
