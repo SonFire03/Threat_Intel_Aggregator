@@ -1,0 +1,17 @@
+.git
+.agents
+.codex
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.venv
+exports
+*.db
+*.sqlite3
+tests
+assets/screenshots
+docs
