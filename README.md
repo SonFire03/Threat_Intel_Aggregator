@@ -137,6 +137,10 @@ Then open:
 - Run tests in Docker: `make docker-test`
 - Start Docker app: `make docker-up`
 
+### Demo data
+
+- Import [samples/demo_iocs.csv](samples/demo_iocs.csv) from the Import Center to seed a realistic IOC set.
+
 ### Quality and docs
 
 - Lint: `ruff check .`

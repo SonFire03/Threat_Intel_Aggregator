@@ -90,16 +90,32 @@ body {
   margin-bottom: 14px;
 }
 
+.hero-stack {
+  display: grid;
+  gap: 8px;
+}
+
 .hero h1 {
   margin: 0;
   font-size: 1.7rem;
   letter-spacing: 0.2px;
 }
 
+.hero h1 code {
+  font-size: 1.25rem;
+}
+
 .hero p {
   margin: 8px 0 0;
   color: var(--muted);
   max-width: 76ch;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
 }
 
 .panel {
@@ -122,6 +138,12 @@ body {
 .panel h2 {
   margin: 0;
   font-size: 1.05rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
 }
 
 .metrics {
@@ -180,6 +202,11 @@ body {
   color: #ffd6d6;
 }
 
+.action-link {
+  width: auto;
+  text-decoration: none;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -208,6 +235,11 @@ code {
   font-family: "JetBrains Mono", monospace;
   color: #a9d8ff;
   font-size: 0.92rem;
+}
+
+a code {
+  text-decoration: underline;
+  text-decoration-color: rgba(169, 216, 255, 0.3);
 }
 
 input,
@@ -258,6 +290,53 @@ pre {
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 10px;
   align-items: end;
+}
+
+.stack {
+  display: grid;
+  gap: 10px;
+}
+
+.stack.compact {
+  gap: 8px;
+}
+
+.subpanel {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(13, 23, 36, 0.85);
+}
+
+.tag-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+}
+
+.tag-remove {
+  width: auto;
+  padding: 0 6px;
+  min-width: 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .stack {

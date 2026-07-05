@@ -1,0 +1,5 @@
+indicator,category,notes
+8.8.8.8,dns,Public resolver for demo imports
+evil.example,domain,Watchlist candidate
+hxxps://phish[.]example/login,url,Defanged phishing sample
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,hash,Known empty SHA-256
