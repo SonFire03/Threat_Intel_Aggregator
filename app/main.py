@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from app.core.config import get_settings
+from app.core.paths import STATIC_DIR
 from app.database import Base, engine
 from app.routers.api import api_router
 from app.routers.web import web_router
@@ -24,7 +25,7 @@ def create_app() -> FastAPI:
     def health() -> dict[str, str]:
         return {"status": "ok"}
 
-    application.mount("/static", StaticFiles(directory="app/static"), name="static")
+    application.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
     application.include_router(web_router)
     application.include_router(api_router)
 

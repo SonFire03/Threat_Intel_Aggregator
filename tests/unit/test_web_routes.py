@@ -7,6 +7,7 @@ def test_web_routes_are_registered() -> None:
 
     assert "/" in paths
     assert "/iocs" in paths
+    assert "/iocs/{ioc_id}" in paths
     assert "/imports" in paths
     assert "/exports" in paths
     assert "/health" in paths

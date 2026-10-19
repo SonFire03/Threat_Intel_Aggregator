@@ -41,12 +41,24 @@ Le projet permet d'ingérer des IOC hétérogènes, de les normaliser, de les d�
 
 ### Démarrage rapide
 
+#### Option locale
+
 ```bash
 cd /path/to/Threat_Intel_Aggregator
 python3 -m venv .venv
 . .venv/bin/activate
 pip install -e '.[dev]'
-uvicorn app.main:app --reload
+make run
+```
+
+Puis ouvrir:
+- App web: `http://127.0.0.1:8000/`
+- Docs API: `http://127.0.0.1:8000/docs`
+
+#### Option Docker
+
+```bash
+docker compose up --build
 ```
 
 Puis ouvrir:
@@ -94,17 +106,40 @@ It ingests heterogeneous indicators, normalizes and deduplicates them, applies e
 
 ### Quick start
 
+#### Local
+
 ```bash
 cd /path/to/Threat_Intel_Aggregator
 python3 -m venv .venv
 . .venv/bin/activate
 pip install -e '.[dev]'
-uvicorn app.main:app --reload
+make run
 ```
 
 Then open:
 - Web app: `http://127.0.0.1:8000/`
 - API docs: `http://127.0.0.1:8000/docs`
+
+#### Docker
+
+```bash
+docker compose up --build
+```
+
+Then open:
+- Web app: `http://127.0.0.1:8000/`
+- API docs: `http://127.0.0.1:8000/docs`
+
+### Commands
+
+- Run app: `make run`
+- Run tests locally: `make test`
+- Run tests in Docker: `make docker-test`
+- Start Docker app: `make docker-up`
+
+### Demo data
+
+- Import [samples/demo_iocs.csv](samples/demo_iocs.csv) from the Import Center to seed a realistic IOC set.
 
 ### Quality and docs
 
