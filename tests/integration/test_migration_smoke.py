@@ -1,7 +1,20 @@
 from __future__ import annotations
 
+import shutil
 import subprocess
+import sys
 from pathlib import Path
+
+
+def _alembic_cmd() -> list[str]:
+    """Resolve alembic for local .venv and CI (pip install, no .venv path)."""
+    local = Path(__file__).resolve().parents[2] / ".venv" / "bin" / "alembic"
+    if local.is_file():
+        return [str(local)]
+    found = shutil.which("alembic")
+    if found:
+        return [found]
+    return [sys.executable, "-m", "alembic"]
 
 
 def test_alembic_upgrade_and_downgrade(tmp_path: Path) -> None:
@@ -21,8 +34,9 @@ def test_alembic_upgrade_and_downgrade(tmp_path: Path) -> None:
     )
     temp_ini.write_text(contents, encoding="utf-8")
 
+    alembic = _alembic_cmd()
     upgrade = subprocess.run(
-        [".venv/bin/alembic", "-c", str(temp_ini), "upgrade", "head"],
+        [*alembic, "-c", str(temp_ini), "upgrade", "head"],
         cwd=project_root,
         check=False,
         capture_output=True,
@@ -31,7 +45,7 @@ def test_alembic_upgrade_and_downgrade(tmp_path: Path) -> None:
     assert upgrade.returncode == 0, upgrade.stderr
 
     downgrade = subprocess.run(
-        [".venv/bin/alembic", "-c", str(temp_ini), "downgrade", "base"],
+        [*alembic, "-c", str(temp_ini), "downgrade", "base"],
         cwd=project_root,
         check=False,
         capture_output=True,
