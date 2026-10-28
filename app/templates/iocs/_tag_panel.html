@@ -1,0 +1,31 @@
+<div class="stack compact">
+  <form
+    hx-post="/iocs/{{ ioc.id }}/tags"
+    hx-target="#tag-panel"
+    hx-swap="innerHTML"
+    class="tag-form"
+  >
+    <input type="text" name="tag_name" placeholder="Add a tag" />
+    <button type="submit">Add</button>
+  </form>
+
+  <div class="tag-list">
+    {% for tag in tags %}
+    <span class="tag-chip" style="border-color: {{ tag.color }}55; background: {{ tag.color }}22;">
+      <span>{{ tag.name }}</span>
+      <button
+        type="button"
+        class="tag-remove"
+        hx-delete="/iocs/{{ ioc.id }}/tags/{{ tag.id }}"
+        hx-target="#tag-panel"
+        hx-swap="innerHTML"
+        aria-label="Remove tag {{ tag.name }}"
+      >
+        ×
+      </button>
+    </span>
+    {% else %}
+    <p class="muted">No tags yet.</p>
+    {% endfor %}
+  </div>
+</div>

@@ -5,12 +5,13 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from app.core.paths import TEMPLATES_DIR
 from app.database import get_db_session
 from app.models.import_job import ImportJob
 from app.models.ioc import IOC
 
 router = APIRouter(tags=["web"])
-templates = Jinja2Templates(directory="app/templates")
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
 
 @router.get("/")

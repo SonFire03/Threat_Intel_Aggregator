@@ -1,0 +1,34 @@
+{% if ioc.is_watchlisted %}
+<div class="stack compact">
+  <span class="pill pill-alert">Watchlisted</span>
+  <p class="muted">
+    {% if ioc.watchlist and ioc.watchlist.reason %}
+    {{ ioc.watchlist.reason }}
+    {% else %}
+    No reason stored.
+    {% endif %}
+  </p>
+  <form
+    hx-post="/iocs/{{ ioc.id }}/watchlist"
+    hx-target="#watchlist-panel"
+    hx-swap="innerHTML"
+    class="stack compact"
+  >
+    <input type="hidden" name="watchlisted" value="false" />
+    <input type="hidden" name="reason" value="" />
+    <button type="submit">Remove from watchlist</button>
+  </form>
+</div>
+{% else %}
+<form
+  hx-post="/iocs/{{ ioc.id }}/watchlist"
+  hx-target="#watchlist-panel"
+  hx-swap="innerHTML"
+  class="stack compact"
+>
+  <input type="hidden" name="watchlisted" value="true" />
+  <label>Reason</label>
+  <input type="text" name="reason" placeholder="Why is this worth watching?" />
+  <button type="submit">Add to watchlist</button>
+</form>
+{% endif %}

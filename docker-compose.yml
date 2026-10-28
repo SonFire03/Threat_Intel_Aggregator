@@ -1,0 +1,25 @@
+services:
+  iocvault:
+    build: .
+    image: iocvault:local
+    ports:
+      - "8000:8000"
+    environment:
+      APP_NAME: IOCvault
+      APP_ENV: production
+      APP_HOST: 0.0.0.0
+      APP_PORT: 8000
+      DATABASE_URL: sqlite:////data/iocvault.db
+      LOG_LEVEL: INFO
+    volumes:
+      - ./app:/app/app
+      - ./alembic:/app/alembic
+      - ./tests:/app/tests:ro
+      - ./pyproject.toml:/app/pyproject.toml:ro
+      - ./alembic.ini:/app/alembic.ini:ro
+      - ./README.md:/app/README.md:ro
+      - ./exports:/app/exports
+      - iocvault-data:/data
+
+volumes:
+  iocvault-data:

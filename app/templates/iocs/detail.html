@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}{{ ioc.value }} | IOCvault{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-stack">
+    <p class="eyebrow">IOC Detail</p>
+    <h1><code>{{ ioc.value }}</code></h1>
+    <p>
+      {% if ioc.is_watchlisted %}
+      Watchlisted indicator with {{ ioc.observation_count }} observation(s).
+      {% else %}
+      Indicator with {{ ioc.observation_count }} observation(s) and live scoring context.
+      {% endif %}
+    </p>
+  </div>
+  <div class="hero-actions">
+    <a class="pill action-link" href="/iocs">Back to list</a>
+    <a class="pill action-link" href="/api/v1/iocs/{{ ioc.id }}">API JSON</a>
+  </div>
+</section>
+
+<section class="panel metrics">
+  <article class="metric-card">
+    <h2>Priority</h2>
+    <p class="metric-value">{{ "%.2f"|format(ioc.priority_score) }}</p>
+  </article>
+  <article class="metric-card">
+    <h2>Confidence</h2>
+    <p class="metric-value">{{ "%.2f"|format(ioc.confidence_score) }}</p>
+  </article>
+  <article class="metric-card">
+    <h2>Severity</h2>
+    <p class="metric-value">{{ "%.2f"|format(ioc.severity_score) }}</p>
+  </article>
+  <article class="metric-card">
+    <h2>Type</h2>
+    <p class="metric-value">{{ ioc.ioc_type.value }}</p>
+  </article>
+</section>
+
+<section class="detail-grid">
+  <article class="panel">
+    <div class="panel-header">
+      <h2>Watchlist</h2>
+      <span id="watchlist-panel">
+        {% include "iocs/_watchlist_panel.html" %}
+      </span>
+    </div>
+  </article>
+
+  <article class="panel">
+    <div class="panel-header">
+      <h2>Tags</h2>
+      <span class="pill">{{ ioc.ioc_tags|length }} linked</span>
+    </div>
+    <div id="tag-panel">
+      {% include "iocs/_tag_panel.html" %}
+    </div>
+  </article>
+</section>
+
+<section class="panel">
+  <div class="panel-header">
+    <h2>Observations</h2>
+    <span class="pill">{{ ioc.observations|length }} rows</span>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Observed At</th>
+        <th>Source</th>
+        <th>Raw Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for observation in ioc.observations %}
+      <tr>
+        <td><span class="muted">{{ observation.observed_at }}</span></td>
+        <td>{{ observation.source.name }}</td>
+        <td><code>{{ observation.raw_value }}</code></td>
+      </tr>
+      {% else %}
+      <tr><td colspan="3">No observation linked yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="panel">
+  <div class="panel-header">
+    <h2>Enrichments</h2>
+    <span class="pill">{{ ioc.enrichments|length }} rows</span>
+  </div>
+  <div class="stack">
+    {% for enrichment in ioc.enrichments %}
+    <article class="subpanel">
+      <div class="panel-header">
+        <strong>{{ enrichment.enricher_name }}</strong>
+        <span class="pill">{{ enrichment.enriched_at }}</span>
+      </div>
+      <pre>{{ enrichment.data | tojson(indent=2) }}</pre>
+    </article>
+    {% else %}
+    <p class="muted">No enrichment stored yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
