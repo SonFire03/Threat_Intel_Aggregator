@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/python-3.12+-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-local-07405E?logo=sqlite&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-38_passing-brightgreen)
+[![CI](https://github.com/SonFire03/Threat_Intel_Aggregator/actions/workflows/ci.yml/badge.svg)](https://github.com/SonFire03/Threat_Intel_Aggregator/actions/workflows/ci.yml)
 
 Local-first IOC aggregation, normalization, scoring, and export workbench.
 
